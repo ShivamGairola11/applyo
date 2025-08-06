@@ -12,23 +12,23 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
   return (
     <div
       onClick={onClick}
-      className="p-4 rounded-xl bg-white/10 border border-white/30 backdrop-blur-md shadow-lg cursor-pointer transform transition-all hover:scale-105 hover:shadow-2xl group"
+      className="p-4 rounded-2xl bg-white/10 border border-black backdrop-blur-md shadow-lg cursor-pointer transform transition-all hover:scale-105 hover:shadow-2xl group"
     >
       <div className="relative w-full h-72 bg-gray-200 rounded overflow-hidden">
         <Image
-          src={Poster !== "N/A" ? Poster : "https://via.placeholder.com/300x450?text=No+Image"}
+          src={Poster !== "N/A" ? Poster : "/placeholderMovie.webp"}
           alt={Title}
           fill
-          className="object-cover group-hover:brightness-90 transition duration-300"
+          className="object-cover group-hover:brightness-90 transition duration-300 rounded-2xl"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
       </div>
 
-      <div className="mt-4">
-        <h3 className="font-epilogue text-lg font-semibold text-white group-hover:text-indigo-400 transition-colors line-clamp-2">
+      <div className="mt-4 py-4">
+        <h3 className="font-epilogue text-xl font-semibold text-black group-hover:text-[#b3063a] transition-colors line-clamp-2">
           {Title}
         </h3>
-        <p className="font-onset text-sm text-gray-300 capitalize ">{Type} | {Year}</p>
+        <p className="font-onset text-lg text-gray-800 capitalize ">{Type} | {Year}</p>
       </div>
     </div>
   );

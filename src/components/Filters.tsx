@@ -20,8 +20,6 @@ export default function Filters({ onFilterChange }: FiltersProps) {
     if (/^\d{0,4}$/.test(val)) {
       setYear(val);
       setYearError("");
-    } else {
-      setYearError("Year must be a number up to 4 digits.");
     }
   };
 
