@@ -29,7 +29,7 @@ export default function MovieModal({ imdbID, onClose }: MovieModalProps) {
     getMovie();
   }, [imdbID]);
 
-  // 🔁 Loading UI with spinner
+  // 🔁 Loading UI
   if (loading) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
@@ -44,40 +44,52 @@ export default function MovieModal({ imdbID, onClose }: MovieModalProps) {
   if (!movie) return null;
 
   return (
-    <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm " onClick={onClose} />
-      <div className="relative z-10 flex items-center justify-center h-full px-4">
-        <div className="relative w-full max-w-5xl bg-black rounded-lg overflow-hidden shadow-xl flex flex-col md:flex-row border border-gray-700 p-6">
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-white text-2xl z-10 hover:text-red-500 transition cursor-pointer"
-          >
-            ✕
-          </button>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center px-4"
+      onClick={onClose}
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-0" />
 
-          {/* 🎞 Poster with overlay */}
-          <div className="relative w-full md:w-2/3 h-64 md:h-auto">
-            <Image
-              src={
-                movie.Poster !== "N/A"
-                  ? movie.Poster
-                  : "/placeholderMovie.webp"
-              }
-              alt={movie.Title}
-              fill
-              className="object-cover opacity-70"
-              priority
-            />
-            <div className="absolute inset-0 bg-black/30" />
-          </div>
+      {/* Modal Content */}
+      <div
+        className="relative z-10 w-full max-w-5xl bg-black rounded-xl overflow-hidden border border-gray-700 shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
+        onClick={(e) => e.stopPropagation()} // prevent backdrop click
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-4 text-white text-2xl z-10 hover:text-red-500 transition"
+        >
+          ✕
+        </button>
 
-          {/* 📄 Content */}
-          <div className="md:w-1/2 p-6 text-white space-y-3 overflow-y-auto max-h-[90vh]">
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">
-              {movie.Title}{" "}
-              <span className="text-gray-400">({movie.Year})</span>
-            </h2>
-            <p className="text-sm text-gray-300 italic">{movie.Type?.toUpperCase()}</p>
+        {/* Poster */}
+        <div className="relative w-full md:w-1/2 h-64 md:h-auto">
+          <Image
+            src={
+              movie.Poster !== "N/A"
+                ? movie.Poster
+                : "/placeholderMovie.webp"
+            }
+            alt={movie.Title}
+            fill
+            className="object-cover opacity-70"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/30" />
+        </div>
+
+        {/* Content */}
+        <div className="md:w-1/2 p-6 text-white space-y-3 overflow-y-auto">
+          <h2 className="text-2xl md:text-3xl font-bold">
+            {movie.Title}{" "}
+            <span className="text-gray-400">({movie.Year})</span>
+          </h2>
+
+          <p className="text-sm text-gray-300 italic mb-2">{movie.Type?.toUpperCase()}</p>
+
+          <div className="space-y-1 text-sm">
             <p><strong>🎬 Genre:</strong> {movie.Genre}</p>
             <p><strong>🎥 Director:</strong> {movie.Director}</p>
             <p><strong>⭐ IMDb Rating:</strong> {movie.imdbRating}</p>
@@ -85,7 +97,9 @@ export default function MovieModal({ imdbID, onClose }: MovieModalProps) {
             <p><strong>🗣 Language:</strong> {movie.Language}</p>
             <p><strong>📅 Released:</strong> {movie.Released}</p>
             <p><strong>🎭 Actors:</strong> {movie.Actors}</p>
-            <p><strong>📝 Plot:</strong> {movie.Plot}</p>
+            <div className="max-h-40 overflow-y-auto pr-1 mt-2">
+              <p><strong>📝 Plot:</strong> {movie.Plot}</p>
+            </div>
           </div>
         </div>
       </div>

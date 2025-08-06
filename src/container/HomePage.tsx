@@ -111,7 +111,7 @@ export default function HomePage() {
 
         <div className="custom-container mx-auto px-4 py-10 relative" ref={resultsRef}>
           {/* Search & Filters */}
-          <div className=" bg-white rounded-xl p-6 -mt-20 relative z-10 grid gap-4 md:gap-8 lg:gap-8 md:grid-cols-1 lg:grid-cols-3 md:items-end shadow-[0_0_20px_#b3063a]">
+          <div className=" bg-white rounded-xl p-6 -mt-20 relative z-10 grid gap-4 md:gap-4 lg:gap-8 md:grid-cols-1 lg:grid-cols-3 md:items-end shadow-[0_0_20px_#b3063a]">
             <SearchBar
               onSearch={(q) => {
                 setQuery(q);
