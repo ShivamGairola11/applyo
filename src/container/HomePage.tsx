@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import SearchBar from "@/components/SearchBar";
 import { fetchMovies } from "@/lib/api";
 import { MovieSummary } from "@/types/movie";
+import SearchBar from "@/components/SearchBar";
+import Filters from "@/components/Filters";
 import MovieCard from "@/components/MovieCard";
 
 export default function HomePage() {
@@ -11,8 +12,11 @@ export default function HomePage() {
   const [movies, setMovies] = useState<MovieSummary[]>([]);
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
+  const [type, setType] = useState("");
+  const [year, setYear] = useState(""); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
 
   const getMovies = async () => {
     if (!query) return;
@@ -20,21 +24,26 @@ export default function HomePage() {
     setError("");
 
     try {
-      const data = await fetchMovies(query, undefined, undefined, page);
+      const data = await fetchMovies(query, type, year, page);
       setMovies(data.Search);
       setTotalResults(Number(data.totalResults));
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.");
-      setMovies([]);
-      setTotalResults(0);
-    } finally {
+    } catch (err: unknown) {
+    if (err instanceof Error) {
+         setError(err.message);
+        } else {
+          setError("Something went wrong.");
+        }
+        setMovies([]);
+        setTotalResults(0);
+    }
+    finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
     getMovies();
-  }, [query, page]);
+  }, [query, type, year, page]);
 
   const totalPages = Math.ceil(totalResults / 10);
 
@@ -49,12 +58,22 @@ export default function HomePage() {
         }}
       />
 
+      <Filters
+        onFilterChange={(newType, newYear) => {
+          setType(newType);
+          setYear(newYear);
+          setPage(1);
+        }}
+      />
+
       {loading && <p className="mt-6 text-blue-600">Loading...</p>}
       {error && <p className="mt-6 text-red-600">{error}</p>}
+
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
         {!loading &&
           !error &&
+          Array.isArray(movies) &&
           movies.map((movie) => <MovieCard key={movie.imdbID} movie={movie} />)}
       </div>
 
