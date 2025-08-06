@@ -1,29 +1,53 @@
-"use client"
-import { useState } from "react"
-interface SearchProps{
-    onSearch:(query:string)=>void;
+"use client";
+
+import { useState } from "react";
+
+interface SearchProps {
+  onSearch: (query: string) => void;
 }
-export default function SearchBar({onSearch}:SearchProps){
-    const [query, setQuery] = useState("");
-    const handleSubmit = (e:React.FormEvent)=>{
-        e.preventDefault();
-        if(query.trim()) onSearch(query.trim());
-    };
-    return(
-    <form onSubmit={handleSubmit} className="flex gap-2 items-center w-full">
-      <input
-        type="text"
-        placeholder="Search movies or series..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="px-4 py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <button
-        type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+
+export default function SearchBar({ onSearch }: SearchProps) {
+  const [query, setQuery] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = query.trim();
+    if (!trimmed) {
+      setError("Please enter a search term.");
+      return;
+    }
+    setError("");
+    onSearch(trimmed);
+  };
+
+  return (
+    <div className="w-full">
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center w-full max-w-xl mx-auto bg-white rounded-full shadow-md overflow-hidden focus-within:ring-2 focus-within:ring-[#b3063a] transition"
       >
-        Search
-      </button>
-    </form>
-    )
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            if (error) setError("");
+          }}
+          placeholder="🔍 Search movies or series..."
+          className="flex-1 px-5 py-3 text-gray-800 placeholder-gray-400 focus:outline-none"
+        />
+        <button
+          type="submit"
+          className="bg-[#b3063a] text-white px-6 py-3 font-medium hover:bg-[#b3063a] transition-colors font-epilogue"
+        >
+          Search
+        </button>
+      </form>
+
+      {error && (
+        <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+      )}
+    </div>
+  );
 }
