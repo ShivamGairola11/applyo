@@ -61,7 +61,7 @@ export default function MovieModal({ imdbID, onClose }: MovieModalProps) {
               src={
                 movie.Poster !== "N/A"
                   ? movie.Poster
-                  : "https://via.placeholder.com/500x750?text=No+Image"
+                  : "/placeholderMovie.webp"
               }
               alt={movie.Title}
               fill

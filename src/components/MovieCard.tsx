@@ -12,7 +12,7 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
   return (
     <div
       onClick={onClick}
-      className="p-4 rounded-2xl bg-white/10 border border-black backdrop-blur-md shadow-lg cursor-pointer transform transition-all hover:scale-105 hover:shadow-2xl group"
+      className="p-4 rounded-2xl bg-white/10 border-2 border-black backdrop-blur-md shadow-lg cursor-pointer transform transition-all hover:scale-105 hover:shadow-2xl group"
     >
       <div className="relative w-full h-72 bg-gray-200 rounded overflow-hidden">
         <Image
@@ -28,7 +28,10 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
         <h3 className="font-epilogue text-xl font-semibold text-black group-hover:text-[#b3063a] transition-colors line-clamp-2">
           {Title}
         </h3>
-        <p className="font-onset text-lg text-gray-800 capitalize ">{Type} | {Year}</p>
+
+        <p className="font-onset text-lg text-gray-800 capitalize mt-2">
+          {Type} | {Year}
+        </p>
       </div>
     </div>
   );

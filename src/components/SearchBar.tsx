@@ -28,11 +28,11 @@ export default function SearchBar({ onSearch }: SearchProps) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="🔍 Search movies or series..."
-        className="flex-1 px-5 py-3 text-gray-800 placeholder-gray-400 focus:outline-none"
+        className="flex-1 px-2 md:px-2 lg:px-5 py-3 text-gray-800 placeholder-gray-400 focus:outline-none"
       />
       <button
         type="submit"
-        className="bg-[#b3063a] text-white px-6 py-3 font-medium hover:bg-[#9d0633] transition-colors font-epilogue"
+        className="bg-[#b3063a] text-white px-4 md:px-5 lg:px-6 py-3 text-md font-medium hover:bg-[#9d0633] transition-colors font-epilogue"
       >
         Search
       </button>

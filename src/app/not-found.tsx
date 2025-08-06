@@ -7,10 +7,10 @@ export default function NotFound() {
     <div className="flex items-center justify-center min-h-screen bg-black text-white text-center px-6">
       <div>
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          404 – So close... yet so lost.
+          404 So close... yet so lost.
         </h1>
         <p className="text-lg md:text-2xl text-gray-300 mb-8">
-          You’ve wandered into the void. This page doesn’t exist – or maybe it ran away. 🤷‍♂️
+          You’ve wandered into the void. This page doesn’t exist  or maybe it ran away. 🤷‍♂️
         </p>
         <Link
           href="/"

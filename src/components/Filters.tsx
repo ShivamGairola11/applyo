@@ -24,12 +24,12 @@ export default function Filters({ onFilterChange }: FiltersProps) {
   };
 
   return (
-    <div className="flex flex-wrap items-start gap-4 mt-4 w-full md:w-auto">
+    <div className="flex flex-row justify-center md:justify-center lg:flex-wrap items-start gap-4 w-full md:w-auto">
       <div className="flex flex-col">
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
-          className="bg-white text-gray-800 border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b3063a] transition"
+          className="bg-white text-gray-800 border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b3063a] transition cursor-pointer"
         >
           <option value="">🎬 All Types</option>
           <option value="movie">🎞️ Movie</option>
