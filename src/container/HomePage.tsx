@@ -28,7 +28,6 @@ export default function HomePage() {
   const [featuredLoading, setFeaturedLoading] = useState(false);
   const resultsRef = useRef<HTMLDivElement | null>(null);
 
-
   const getMovies = async () => {
     if (!query.trim()) return;
     if (year && year.length !== 4) return;
@@ -68,10 +67,12 @@ export default function HomePage() {
     if (query.trim()) {
       setShowFeatured(false);
       getMovies();
-       requestAnimationFrame(() => {
-  resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
+      requestAnimationFrame(() => {
+        resultsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
     }
   }, [query, page]);
 
@@ -108,28 +109,30 @@ export default function HomePage() {
         </p>
       </div>
 
+      <div
+        className="custom-container mx-auto px-4 py-10 relative"
+        ref={resultsRef}
+      >
+        {/* Search & Filters */}
+        <div className=" bg-white rounded-xl p-6 -mt-20 relative z-10 grid gap-4 md:gap-4 lg:gap-8 md:grid-cols-1 lg:grid-cols-3 md:items-end shadow-[0_0_20px_#b3063a]">
+          <SearchBar
+            onSearch={(q) => {
+              setQuery(q);
+              setPage(1);
+            }}
+          />
 
-        <div className="custom-container mx-auto px-4 py-10 relative" ref={resultsRef}>
-          {/* Search & Filters */}
-          <div className=" bg-white rounded-xl p-6 -mt-20 relative z-10 grid gap-4 md:gap-4 lg:gap-8 md:grid-cols-1 lg:grid-cols-3 md:items-end shadow-[0_0_20px_#b3063a]">
-            <SearchBar
-              onSearch={(q) => {
-                setQuery(q);
-                setPage(1);
-              }}
-            />
-
-            <Filters
-              onFilterChange={(newType, newYear) => {
-                setType(newType);
-                setYear(newYear);
-              }}
-            />
-            { query && (
+          <Filters
+            onFilterChange={(newType, newYear) => {
+              setType(newType);
+              setYear(newYear);
+            }}
+          />
+          {query && (
             <div className="flex items-center justify-center gap-3 md:justify-center lg:justify-end">
               <span className="text-sm text-gray-500 font-medium">View:</span>
               <div className="relative inline-flex items-center h-10 w-20 shadow-inner bg-white">
-              <button
+                <button
                   onClick={() => setViewMode("grid")}
                   className={`flex items-center justify-center w-1/2 h-full transition-all ${
                     viewMode === "grid"
@@ -149,161 +152,157 @@ export default function HomePage() {
                 >
                   <FaListUl className="text-lg" />
                 </button>
-
               </div>
             </div>
-            )}
-            
-          </div>
-
-          {/* Clear All */}
-         {(query || type || year.length === 4) && (
-            <div className="text-right mt-4">
-              <button
-                onClick={handleClearAll}
-                className="text-md text-[#b3063a] underline hover:opacity-75 font-semibold cursor-pointer"
-              >
-                Clear All
-              </button>
-            </div>
           )}
+        </div>
 
-          {/* Start Searching Message */}
-          {!query && (
-            <p className="text-center text-gray-500 mt-10 text-lg font-semibold">
-              Start searching for your favorite movies or series!
-            </p>
-          )}
-
-
-
-          {/* Loading Skeletons */}
-          {loading && (
-            <div
-              className={`grid ${
-                viewMode === "grid"
-                  ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-                  : "grid-cols-1"
-              } gap-6 mt-8`}
+        {/* Clear All */}
+        {(query || type || year.length === 4) && (
+          <div className="text-right mt-4">
+            <button
+              onClick={handleClearAll}
+              className="text-md text-[#b3063a] underline hover:opacity-75 font-semibold cursor-pointer"
             >
-              {Array.from({ length: 6 }).map((_, idx) => (
-                <MovieSkeleton key={idx} />
-              ))}
-            </div>
-          )}
+              Clear All
+            </button>
+          </div>
+        )}
 
-          {/* Error */}
-          {error && (
-            <ErrorMessage
-              message={error}
-              onRetry={() => {
-                setError("");
-                getMovies();
-              }}
-            />
-          )}
+        {/* Start Searching Message */}
+        {!query && (
+          <p className="text-center text-gray-500 mt-10 text-lg font-semibold">
+            Start searching for your favorite movies or series!
+          </p>
+        )}
 
-          {/* Search Result Heading */}
-          {!loading && !error && query && (
-            <h3 className="mt-5 text-xl font-medium text-gray-700">
-              Results for <span className="text-[#b3063a]">&quot;{query}&quot;</span>
-              {type && (
-                <span>
-                  {" "}
-                  | Type:{" "}
-                  <span className="text-[#b3063a] font-semibold">{type}</span>
-                </span>
-              )}
-              {year && (
-                <span>
-                  {" "}
-                  | Year:{" "}
-                  <span className="text-[#b3063a] font-semibold">{year}</span>
-                </span>
-              )}
-            </h3>
-          )}
+        {/* Loading Skeletons */}
+        {loading && (
+          <div
+            className={`grid ${
+              viewMode === "grid"
+                ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+                : "grid-cols-1"
+            } gap-6 mt-8`}
+          >
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <MovieSkeleton key={idx} />
+            ))}
+          </div>
+        )}
 
-          {/* Movie Results */}
+        {/* Error */}
+        {error && (
+          <ErrorMessage
+            message={error}
+            onRetry={() => {
+              setError("");
+              getMovies();
+            }}
+          />
+        )}
+
+        {/* Search Result Heading */}
+        {!loading && !error && query && (
+          <h3 className="mt-5 text-xl font-medium text-gray-700">
+            Results for{" "}
+            <span className="text-[#b3063a]">&quot;{query}&quot;</span>
+            {type && (
+              <span>
+                {" "}
+                | Type:{" "}
+                <span className="text-[#b3063a] font-semibold">{type}</span>
+              </span>
+            )}
+            {year && (
+              <span>
+                {" "}
+                | Year:{" "}
+                <span className="text-[#b3063a] font-semibold">{year}</span>
+              </span>
+            )}
+          </h3>
+        )}
+
+        {/* Movie Results */}
+        {!loading && !error && Array.isArray(movies) && movies.length > 0 && (
           <div
             className={`${
               viewMode === "grid"
-                ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-                : "flex flex-col gap-4"
-            } mt-10`}
+                ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10"
+                : "flex flex-col gap-4 mt-10"
+            }`}
           >
-            {!loading &&
-              !error &&
-              Array.isArray(movies) &&
-              movies.map((movie) =>
-                viewMode === "grid" ? (
+            {movies.map((movie) =>
+              viewMode === "grid" ? (
+                <MovieCard
+                  key={movie.imdbID}
+                  movie={movie}
+                  onClick={() => setSelectedMovieId(movie.imdbID)}
+                />
+              ) : (
+                <MovieList
+                  key={movie.imdbID}
+                  movie={movie}
+                  onClick={() => setSelectedMovieId(movie.imdbID)}
+                />
+              )
+            )}
+          </div>
+        )}
+
+        {/* Pagination */}
+        {totalPages > 1 && query && (
+          <div className="flex justify-center items-center gap-4 mt-10">
+            <button
+              onClick={() => setPage((p) => Math.max(p - 1, 1))}
+              disabled={page === 1}
+              className="relative group px-5 py-2 rounded-md border text border-gray-300 bg-gradient-to-r from-[#fff] to-[#b3063a] text-white font-medium cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span className="relative z-10">← Prev</span>
+            </button>
+
+            <span className="text-sm font-semibold px-4 py-2 text-gray-800 bg-white rounded shadow-inner border border-[#b3063a]">
+              Page {page} / {totalPages}
+            </span>
+
+            <button
+              onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+              disabled={page === totalPages}
+              className="relative group px-5 py-2 rounded-md border border-gray-300 bg-gradient-to-r from-[#b3063a] to-[#fff] text-white font-medium cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span className="relative z-10">Next →</span>
+            </button>
+          </div>
+        )}
+
+        {/* Featured Section */}
+        {!query && (
+          <>
+            <h2 className="text-4xl font-bold  my-4 text-gray-800">
+              Featured Movies
+            </h2>
+
+            {featuredLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {Array.from({ length: 6 }).map((_, idx) => (
+                  <MovieSkeleton key={idx} />
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {featuredMovies.map((movie) => (
                   <MovieCard
                     key={movie.imdbID}
                     movie={movie}
                     onClick={() => setSelectedMovieId(movie.imdbID)}
                   />
-                ) : (
-                  <MovieList
-                    key={movie.imdbID}
-                    movie={movie}
-                    onClick={() => setSelectedMovieId(movie.imdbID)}
-                  />
-                )
-              )}
-          </div>
-
-          {/* Pagination */}
-          {totalPages > 1 && query && (
-            <div className="flex justify-center items-center gap-4 mt-10">
-              <button
-                onClick={() => setPage((p) => Math.max(p - 1, 1))}
-                disabled={page === 1}
-                className="relative group px-5 py-2 rounded-md border text border-gray-300 bg-gradient-to-r from-[#fff] to-[#b3063a] text-white font-medium cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <span className="relative z-10">← Prev</span>
-              </button>
-
-              <span className="text-sm font-semibold px-4 py-2 text-gray-800 bg-white rounded shadow-inner border border-[#b3063a]">
-                Page {page} / {totalPages}
-              </span>
-
-              <button
-                onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-                disabled={page === totalPages}
-                className="relative group px-5 py-2 rounded-md border border-gray-300 bg-gradient-to-r from-[#b3063a] to-[#fff] text-white font-medium cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <span className="relative z-10">Next →</span>
-              </button>
-            </div>
-          )}
-
-            {/* Featured Section */}
-            {!query && (
-            <>
-              <h2 className="text-4xl font-bold  my-4 text-gray-800">
-                Featured Movies
-              </h2>
-
-              {featuredLoading ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                  {Array.from({ length: 6 }).map((_, idx) => (
-                    <MovieSkeleton key={idx} />
-                  ))}
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                  {featuredMovies.map((movie) => (
-                    <MovieCard
-                      key={movie.imdbID}
-                      movie={movie}
-                      onClick={() => setSelectedMovieId(movie.imdbID)}
-                    />
-                  ))}
-                </div>
-              )}
-            </>
-          )}
-        </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
 
       {/* Modal */}
       {selectedMovieId && (

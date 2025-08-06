@@ -31,7 +31,7 @@ export default function Filters({ onFilterChange }: FiltersProps) {
           onChange={(e) => setType(e.target.value)}
           className="bg-white text-gray-800 border border-gray-300 w-36 h-10  px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b3063a] transition cursor-pointer"
         >
-          <option value="">🎬 All Types</option>
+          <option value="">Select Type</option>
           <option value="movie">🎞️ Movie</option>
           <option value="series">📺 Series</option>
         </select>
