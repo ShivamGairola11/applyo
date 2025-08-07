@@ -48,18 +48,15 @@ export default function MovieModal({ imdbID, onClose }: MovieModalProps) {
       className="fixed inset-0 z-50 flex items-center justify-center px-4"
       onClick={onClose}
     >
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-0" />
-
-      {/* Modal Content */}
       <div
         className="relative z-10 w-full max-w-5xl bg-black rounded-xl overflow-hidden border border-gray-700 shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
-        onClick={(e) => e.stopPropagation()} // prevent backdrop click
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-4 text-white text-2xl z-10 hover:text-red-500 transition"
+          className="absolute top-3 right-4 text-white text-2xl z-10 hover:text-red-500 transition cursor-pointer"
         >
           ✕
         </button>
@@ -90,15 +87,15 @@ export default function MovieModal({ imdbID, onClose }: MovieModalProps) {
           <p className="text-sm text-gray-300 italic mb-2">{movie.Type?.toUpperCase()}</p>
 
           <div className="space-y-1 text-sm">
-            <p><strong>🎬 Genre:</strong> {movie.Genre}</p>
-            <p><strong>🎥 Director:</strong> {movie.Director}</p>
-            <p><strong>⭐ IMDb Rating:</strong> {movie.imdbRating}</p>
-            <p><strong>⏱ Runtime:</strong> {movie.Runtime}</p>
-            <p><strong>🗣 Language:</strong> {movie.Language}</p>
-            <p><strong>📅 Released:</strong> {movie.Released}</p>
-            <p><strong>🎭 Actors:</strong> {movie.Actors}</p>
+            <p className="text-white"><span className="text-gray-400">Genre:</span> {movie.Genre}</p>
+            <p className="text-white "><span className="text-gray-400">Director:</span> {movie.Director}</p>
+            <p className="text-white "><span className="text-gray-400">IMDb Rating:</span> {movie.imdbRating}</p>
+            <p className="text-white "><span className="text-gray-400">Runtime:</span> {movie.Runtime}</p>
+            <p className="text-white "><span className="text-gray-400">Language:</span> {movie.Language}</p>
+            <p className="text-white "><span className="text-gray-400">Released:</span> {movie.Released}</p>
+            <p className="text-white "><span className="text-gray-400">Actors:</span> {movie.Actors}</p>
             <div className="max-h-40 overflow-y-auto pr-1 mt-2">
-              <p><strong>📝 Plot:</strong> {movie.Plot}</p>
+              <p className="text-white "><span className="text-gray-400">Plot:</span> {movie.Plot}</p>
             </div>
           </div>
         </div>
