@@ -7,23 +7,22 @@ Search, filter, and explore from a vast library using a beautiful and responsive
 
 ## 🚀 Features
 
-- 🔍 **Live Search**: Find movies or series by title in real time.
-- 🎛 **Filters**: Filter by type (movie/series) and release year.
-- 🎞 **Featured Picks**: Start with handpicked movies on page load.
-- 💡 **Plot Previews**: Hover or tap for quick plot summaries.
-- 🎨 **Grid & List View**: Toggle between card or detailed views.
-- 🐛 **Error Handling**: Elegant fallback with retry mechanism.
-- 📱 **Fully Responsive**: Works seamlessly on mobile, tablet, and desktop.
+- **Live Search**: Find movies or series by title in real time.
+- **Filters**: Filter by type (movie/series) and release year.
+- **Featured Picks**: Start with handpicked movies on page load.
+- **Plot Previews**: Tap for quick plot summaries.
+- **Grid & List View**: Toggle between card or detailed views.
+- **Error Handling**: Elegant fallback with retry mechanism.
+- **Fully Responsive**: Works seamlessly on mobile, tablet, and desktop.
 
 ---
 
 ## 🛠 Tech Stack
 
-- ⚛️ **Next.js 14 (App Router)**
-- 💨 **Tailwind CSS**
-- 🔄 **Framer Motion**
-- 🌐 **OMDb API**
-- 🔠 **TypeScript**
+-  **Next.js**
+-  **Tailwind CSS**
+-  **OMDb API**
+-  **TypeScript**
 
 ---
 
